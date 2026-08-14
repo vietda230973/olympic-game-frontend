@@ -1,0 +1,26 @@
+<div class="row g-4">
+  <div *ngIf="error" class="center">
+    <h2>{{ error }}</h2>
+  </div>
+
+  <div class="col-12 col-xl-7">
+    <div class="chart-container wrapper-container">
+      <div class="container">
+        <canvas id="countryChart">{{ lineChart }}</canvas>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-12 col-xl-7">
+    <div class="chart-container wrapper-container">
+      <div class="container">
+        <canvas id="countryBarChart">{{ barChart }}</canvas>
+        <h2>Date</h2>
+      </div>
+     </div>
+  </div>
+
+  <div class="center">
+    <a routerLink="">Go back</a>
+  </div>
+</div>

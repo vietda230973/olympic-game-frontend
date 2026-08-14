@@ -1,0 +1,33 @@
+.chart-container {
+  position: relative;
+  height: 400px;
+  width: 100%;
+
+  @media (max-width: 767px) {
+    height: 280px;
+  }
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  // Astuce "aspect-ratio carré" compatible tous navigateurs modernes
+  aspect-ratio: 1 / 1;
+  max-height: 500px; // évite qu'il devienne énorme sur grand écran
+  margin: 0 auto;
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  // Mobile : on réduit un peu la taille max pour éviter qu'il prenne tout l'écran
+  @media (max-width: 767px) {
+    max-height: 320px;
+  }
+
+  // Tablette
+  @media (min-width: 768px) and (max-width: 1199px) {
+    max-height: 400px;
+  }
+}

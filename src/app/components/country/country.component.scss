@@ -1,0 +1,32 @@
+
+.wrapper-container {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 50%;
+    h2{
+        text-align: center;
+        color: gray;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 100%;
+    }
+}
+
+#countryChart {
+  width: 100% !important;
+  height: 350px !important;
+
+  @media (max-width: 1199px) {
+    height: 310px !important;
+  }
+
+  @media (max-width: 767px) {
+    height: 250px !important;
+  }
+}

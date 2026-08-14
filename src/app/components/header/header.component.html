@@ -1,0 +1,17 @@
+<div class="row g-4">
+    <div class="col-12 col-xl-5">
+        <div class="center">
+            <div>{{ titlePage }}</div>
+        </div>
+        <div class="d-flex flex-column flex-md-row flex-xl-column gap-3">
+            <div class="split">
+                
+                    <div *ngFor="let indicateur of indicateurs">
+                        <p>{{ indicateur.libelle }}</p>
+                        <p>{{ indicateur.valeur}}</p>
+                    </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
