@@ -6,6 +6,7 @@ import Chart from 'chart.js/auto';
 import { DataService } from '../../services/data.services';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from 'src/app/core/error-handling/notification.service';
 
 @Component({
   selector: 'app-country',
@@ -23,7 +24,7 @@ export class CountryComponent implements OnInit, OnDestroy {
   public totalAthletes: number = 0;
   public error!: string;
  
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private dataService: DataService) {
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private dataService: DataService, private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -36,6 +37,7 @@ export class CountryComponent implements OnInit, OnDestroy {
 
           if (!selectedCountry) {
             this.error = 'Pays non trouvé!';
+            this.notificationService.afficherErreur(this.error);
             return;
           }
           

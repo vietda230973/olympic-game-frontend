@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { Country, Participation } from '../../models/olympic.model'
 import Chart from 'chart.js/auto';
 import { DataService } from '../../services/data.services';
+import { NotificationService } from 'src/app/core/error-handling/notification.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -17,23 +19,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   public totalCountries: number = 0
   public totalJOs: number = 0
   public error!:string
+  public loading = true; 
   titlePage: string = "Medals per Country";
 
-  constructor(private router: Router, private http:HttpClient, private dataService: DataService ) { }
+  constructor(private router: Router, private http:HttpClient, private dataService: DataService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.dataService.getTousDonnees().pipe().subscribe(
       (data) => {
+        this.loading = false;
         console.log(`Liste des données : ${JSON.stringify(data)}`);
         if (data && data.length > 0) {
           const countries: string[] = data.map((i: Country) => i.country);
           const medals = data.map((i: Country) => i.participations.map((i: Participation) => (i.medalsCount)));
           const sumOfAllMedalsYears = medals.map((i) => i.reduce((acc: number, i: number) => acc + i, 0));
           this.buildPieChart(countries, sumOfAllMedalsYears);
+        } else {
+          this.notificationService.afficherErreur("Aucune donnée !");
         }
       },
       (error:HttpErrorResponse) => {
         console.log(`erreur : ${error}`);
+        this.loading = false;
         this.error = error.message
       }
     )

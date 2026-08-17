@@ -1,4 +1,14 @@
 <div class="container-fluid dashboard-page">
+  <!-- État : chargement -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner" role="status" aria-live="polite"></div>
+    <h2><p>Chargement des données…</p></h2>
+  </div>
+
+  <div class="error-state" *ngIf="!loading && error">
+    <p>⚠️ Une erreur est survenue : {{ error }}</p>
+  </div>
+
   <div class="row g-4">
     <div class="col-12 col-xl-7">
       <div class="chart-wrapper">

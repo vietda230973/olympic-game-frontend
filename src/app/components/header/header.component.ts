@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import { Country, Participation } from '../../models/olympic.model'
 import { DataService } from '../../services/data.services';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from 'src/app/core/error-handling/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public error!:string;
   titlePage: string = "";
 
-  constructor (private route: ActivatedRoute, private http: HttpClient, private dataService: DataService) {
+  constructor (private route: ActivatedRoute, private http: HttpClient, private dataService: DataService, private notificationService : NotificationService) {
 
   }
 
@@ -35,6 +36,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
           const countries: string[] = data.map((i: Country) => i.country);
           const totalCountries = countries.length;
           this.indicateurs = [...this.indicateurs, { libelle : 'Number of JOs', valeur : totalCountries.toString()   }];
+        }  else {
+          this.notificationService.afficherErreur("Aucune donnée !");
+          this.error = 'Aucune donnée';
         }
 
         const selectedCountry = data.find((i: Country) => i.country === countryName);
