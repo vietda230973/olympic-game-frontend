@@ -48,7 +48,6 @@ export class CountryComponent implements OnInit, OnDestroy {
         }
       },
       (error:HttpErrorResponse) => {
-        console.log(`erreur : ${error}`);
         this.error = error.message
       }       
     );

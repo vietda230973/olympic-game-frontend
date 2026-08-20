@@ -13,7 +13,7 @@ import { NotificationService } from 'src/app/core/error-handling/notification.se
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
   public indicateurs : any[] = [];
   public error!:string;
@@ -65,13 +65,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           
       }) ,
       (error:HttpErrorResponse) => {
-        console.log(`erreur : ${error}`);
         this.error = error.message
       }
 
   }
 
-  ngOnDestroy () {
-
-  }
+  
 }

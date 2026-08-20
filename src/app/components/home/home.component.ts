@@ -39,7 +39,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       },
       (error:HttpErrorResponse) => {
-        console.log(`erreur : ${error}`);
         this.loading = false;
         this.error = error.message
       }
