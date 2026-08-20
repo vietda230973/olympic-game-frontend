@@ -24,8 +24,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit () {
-    let countryName: string | null = null
-    this.route.paramMap.subscribe((param: ParamMap) => countryName = param.get('countryName'));
+    let countryId: number | undefined = undefined
+    this.route.paramMap.subscribe((param: ParamMap) => countryId = Number(param.get('countryId')));
     this.dataService.getTousDonnees().pipe().subscribe(
       (data) => {
         console.log(`Liste des données : ${JSON.stringify(data)}`);
@@ -41,8 +41,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.error = 'Aucune donnée';
         }
 
-        const selectedCountry = data.find((i: Country) => i.country === countryName);
+        const selectedCountry = data.find((i: Country) => i.id === countryId);
         if (!selectedCountry) {
+          this.error = 'Pays non trouvé!';
+          this.notificationService.afficherErreur(this.error);
           return;
         }
 

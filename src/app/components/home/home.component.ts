@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.loading = false;
         console.log(`Liste des données : ${JSON.stringify(data)}`);
         if (data && data.length > 0) {
-          const countries: string[] = data.map((i: Country) => i.country);
+          const countries: string[] = [...new Set(data.map((i: Country) => Number(i.id) + " - " + i.country))];
           const medals = data.map((i: Country) => i.participations.map((i: Participation) => (i.medalsCount)));
           const sumOfAllMedalsYears = medals.map((i) => i.reduce((acc: number, i: number) => acc + i, 0));
           this.buildPieChart(countries, sumOfAllMedalsYears);
@@ -69,8 +69,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             const points = pieChart.getElementsAtEventForMode(e.native, 'point', { intersect: true }, true)
             if (points.length) {
               const firstPoint = points[0];
-              const countryName = pieChart.data.labels ? pieChart.data.labels[firstPoint.index] : '';
-              this.router.navigate(['country', countryName]);
+              const countryNameEtId = pieChart.data.labels ? pieChart.data.labels[firstPoint.index] : '';
+              // Extract country name and ID (assuming format is "ID - Country")
+              const [countryId, countryName] = countryNameEtId.split(' - ');
+              this.router.navigate(['country', countryId]);
             }
           }
         }

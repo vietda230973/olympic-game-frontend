@@ -28,12 +28,12 @@ export class CountryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    let countryName: string | null = null
-    this.route.paramMap.subscribe((param: ParamMap) => countryName = param.get('countryName'));
+    let countryId: number | undefined = undefined
+    this.route.paramMap.subscribe((param: ParamMap) => countryId = Number(param.get('countryId')));
     this.dataService.getTousDonnees().pipe().subscribe(
       (data) => {
         if (data && data.length > 0) {
-          const selectedCountry = data.find((i: Country) => i.country === countryName);
+          const selectedCountry = data.find((i: Country) => i.id === countryId);
 
           if (!selectedCountry) {
             this.error = 'Pays non trouvé!';
