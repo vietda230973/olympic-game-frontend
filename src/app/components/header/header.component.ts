@@ -43,8 +43,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         const selectedCountry = data.find((i: Country) => i.id === countryId);
         if (!selectedCountry) {
-          this.error = 'Pays non trouvé!';
-          this.notificationService.afficherErreur(this.error);
           return;
         }
 
